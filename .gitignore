@@ -2,3 +2,6 @@
 Thumbs.db
 *.log
 
+
+# Local Netlify folder
+.netlify
