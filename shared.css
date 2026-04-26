@@ -182,20 +182,6 @@ button { font: inherit; }
   cursor: pointer;
 }
 
-.theme-toggle {
-  min-width: 0;
-  padding: 0 14px;
-  cursor: pointer;
-}
-
-.theme-toggle span {
-  font-size: 0.76rem;
-  font-weight: 900;
-  letter-spacing: 0;
-  line-height: 1;
-  white-space: nowrap;
-}
-
 .menu-toggle svg,
 .icon-button svg,
 .chip-button svg,
@@ -771,13 +757,16 @@ button { font: inherit; }
 }
 
 .project-mini {
+  position: relative;
   border: 1px solid var(--line);
   border-radius: 17px;
   background: color-mix(in srgb, var(--panel-2) 76%, transparent);
   overflow: hidden;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 
 .project-mini summary {
+  position: relative;
   list-style: none;
   cursor: pointer;
   padding: 16px;
@@ -786,6 +775,7 @@ button { font: inherit; }
   justify-content: space-between;
   gap: 16px;
   font-weight: 950;
+  transition: padding 180ms ease, background 180ms ease;
 }
 
 .project-summary-main {
@@ -807,6 +797,40 @@ button { font: inherit; }
 }
 
 .project-mini summary::-webkit-details-marker { display: none; }
+
+.project-mini:not([open]):hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--green) 48%, var(--line));
+  box-shadow: var(--shadow-soft);
+}
+
+.project-mini:not([open]) summary:hover {
+  padding-bottom: 34px;
+  background: color-mix(in srgb, var(--green) 8%, transparent);
+}
+
+.project-mini:not([open]) summary::after,
+.timeline-card:not([open]) summary::after {
+  content: "Tap to view more";
+  position: absolute;
+  right: 16px;
+  bottom: 8px;
+  opacity: 0;
+  transform: translateY(5px);
+  color: var(--green);
+  font-size: 0.72rem;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.project-mini:not([open]) summary:hover::after,
+.timeline-card:not([open]) summary:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 .project-mini summary span {
   color: var(--muted);
@@ -834,13 +858,42 @@ button { font: inherit; }
 }
 
 .timeline-card {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.timeline-card .logo { width: 54px; height: 54px; border-radius: 16px; }
+
+.timeline-card summary {
+  position: relative;
+  list-style: none;
+  cursor: pointer;
   padding: 20px;
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 16px;
+  align-items: center;
+  transition: padding 180ms ease, background 180ms ease;
 }
 
-.timeline-card .logo { width: 54px; height: 54px; border-radius: 16px; }
+.timeline-card summary::-webkit-details-marker { display: none; }
+
+.timeline-card:not([open]):hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--green) 48%, var(--line));
+  box-shadow: var(--shadow-soft);
+}
+
+.timeline-card:not([open]) summary:hover {
+  padding-bottom: 38px;
+  background: color-mix(in srgb, var(--green) 8%, transparent);
+}
+
+.timeline-card > ul {
+  padding: 0 20px 22px 98px;
+}
 
 .skills-grid {
   display: grid;
@@ -1207,6 +1260,10 @@ button { font: inherit; }
 
   .quest-head {
     flex-direction: column;
+  }
+
+  .timeline-card > ul {
+    padding: 0 18px 20px 24px;
   }
 
   .resume-toolbar {
