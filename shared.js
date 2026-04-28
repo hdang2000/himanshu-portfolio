@@ -2,12 +2,19 @@ const q = (selector, scope = document) => scope.querySelector(selector);
 const qa = (selector, scope = document) => Array.from(scope.querySelectorAll(selector));
 
 const storedTheme = localStorage.getItem("portfolio-theme-v2");
+const themeColorMeta = q('meta[name="theme-color"]');
+const setThemeColor = (isDark) => {
+  if (themeColorMeta) themeColorMeta.setAttribute("content", isDark ? "#061725" : "#fbfaf6");
+};
+
 if (storedTheme === "dark") {
   document.documentElement.classList.add("dark");
   document.body.classList.add("dark");
+  setThemeColor(true);
 } else {
   document.documentElement.classList.remove("dark");
   document.body.classList.remove("dark");
+  setThemeColor(false);
 }
 
 const progressFill = q(".progress-fill");
@@ -69,6 +76,7 @@ if (themeToggle) {
     const isDark = !document.documentElement.classList.contains("dark");
     document.documentElement.classList.toggle("dark", isDark);
     document.body.classList.toggle("dark", isDark);
+    setThemeColor(isDark);
     localStorage.setItem("portfolio-theme-v2", isDark ? "dark" : "light");
   });
 }
