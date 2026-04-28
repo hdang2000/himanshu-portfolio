@@ -2,7 +2,7 @@ const q = (selector, scope = document) => scope.querySelector(selector);
 const qa = (selector, scope = document) => Array.from(scope.querySelectorAll(selector));
 
 const storedTheme = localStorage.getItem("portfolio-theme-v2");
-if (storedTheme !== "light") {
+if (storedTheme === "dark") {
   document.documentElement.classList.add("dark");
   document.body.classList.add("dark");
 } else {
